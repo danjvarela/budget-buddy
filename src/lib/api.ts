@@ -1,16 +1,10 @@
 import { env } from "@/env.mjs"
 
-class CustomFetch {
-  baseUrl?: string
+class BudgetBuddyApi {
   token?: string
 
-  constructor({ baseUrl, token }: CustomFetch) {
-    this.baseUrl = baseUrl || env.BACKEND_URL
-    this.token = token
-  }
-
-  private resolvePath(path: string, baseUrl?: string) {
-    return new URL(path, baseUrl || env.BACKEND_URL).toString()
+  private resolvePath(path: string) {
+    return new URL(path, env.BACKEND_URL).toString()
   }
 
   private async httpReq<T>(path: string, opts: RequestInit) {
@@ -32,6 +26,10 @@ class CustomFetch {
           : ((await response.json()) as unknown as T),
       ...response,
     }
+  }
+
+  authenticate(token: string) {
+    this.token = token
   }
 
   async get<T>(url: string, opts: Omit<RequestInit, "method">) {
@@ -67,4 +65,6 @@ class CustomFetch {
   }
 }
 
-export default CustomFetch
+const api = new BudgetBuddyApi()
+
+export default api
