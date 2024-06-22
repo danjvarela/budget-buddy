@@ -1,6 +1,8 @@
 "use server"
 
+import { cookies } from "next/headers"
 import api from "@/lib/api"
+import { POST_AUTH_URL_COOKIE_NAME } from "@/lib/constants"
 
 export async function login(body: { email: string; password: string }) {
   try {
@@ -36,7 +38,21 @@ export async function login(body: { email: string; password: string }) {
   }
 }
 
-export async function getGoogleAuthorizationURL() {
+export async function getGoogleAuthorizationURL({
+  redirectUrlAfterLogin,
+}: {
+  redirectUrlAfterLogin?: string
+}) {
+  // we'll set this cookie so we can pick this up when user has been redirected to /auth/google/callback
+  // after successfully authenticating with google
+  if (redirectUrlAfterLogin) {
+    cookies().set({
+      name: POST_AUTH_URL_COOKIE_NAME,
+      value: redirectUrlAfterLogin,
+      sameSite: "lax",
+    })
+  }
+
   try {
     const { data, response } = await api.post<{ authorize_url: string }>(
       "/auth/google",

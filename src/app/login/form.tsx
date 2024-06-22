@@ -1,6 +1,7 @@
 "use client"
 
-import { redirect } from "next/navigation"
+import { useCallback } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -28,6 +29,10 @@ type LoginData = z.infer<typeof schema>
 
 export default function LoginForm() {
   const { toast } = useToast()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const redirectUrl = searchParams.get("from") || "/"
 
   const form = useForm<LoginData>({
     resolver: zodResolver(schema),
@@ -37,21 +42,26 @@ export default function LoginForm() {
     },
   })
 
-  async function onSubmit(data: LoginData) {
-    const res = await login(data)
+  const onSubmit = useCallback(
+    async (data: LoginData) => {
+      const res = await login(data)
 
-    if ("error" in res) {
+      if ("error" in res) {
+        toast({
+          variant: "destructive",
+          description: res.error,
+        })
+        return
+      }
+
       toast({
-        variant: "destructive",
-        description: res.error,
+        description: res.success,
       })
-      return
-    }
 
-    toast({
-      description: res.success,
-    })
-  }
+      router.push(redirectUrl)
+    },
+    [toast, router, redirectUrl]
+  )
 
   return (
     <Form {...form}>
