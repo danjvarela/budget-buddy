@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import { getCurrentSessionServerSide } from "@/lib/session"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
+import Providers from "./providers"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -11,11 +13,13 @@ export const metadata: Metadata = {
   description: "A simple tool to help you in budgeting",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const session = await getCurrentSessionServerSide()
+
   return (
     <html lang="en">
       <body
@@ -24,7 +28,7 @@ export default function RootLayout({
           inter.className
         )}
       >
-        {children}
+        <Providers session={session}>{children}</Providers>
         <Toaster />
       </body>
     </html>

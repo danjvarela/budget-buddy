@@ -48,6 +48,10 @@ class BudgetBuddyApi {
     })
   }
 
+  setToken(token: string) {
+    this.token = token
+  }
+
   async get<T>(url: string, opts?: Omit<RequestInit, "method">) {
     return await this.httpReq<T>(url, { method: "GET", ...opts })
   }
