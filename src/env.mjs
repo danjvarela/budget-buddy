@@ -8,7 +8,6 @@ export const env = createEnv({
    */
   server: {
     BACKEND_URL: z.string().url(),
-    GOOGLE_OAUTH_REDIRECT_URI: z.string().url(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -24,6 +23,5 @@ export const env = createEnv({
    */
   runtimeEnv: {
     BACKEND_URL: process.env.BACKEND_URL,
-    GOOGLE_OAUTH_REDIRECT_URI: process.env.GOOGLE_OAUTH_REDIRECT_URI,
   },
 })
