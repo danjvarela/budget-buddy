@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
@@ -12,8 +12,10 @@ const LogoutButton = React.forwardRef<
 >(({ children, ...props }, ref) => {
   const { toast } = useToast()
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
 
   async function onClick() {
+    setIsLoading(true)
     const res = await logout()
 
     if ("error" in res) {
@@ -21,13 +23,15 @@ const LogoutButton = React.forwardRef<
         variant: "destructive",
         description: res.error,
       })
+      setIsLoading(false)
       return
     }
 
+    setIsLoading(false)
     router.push("/login")
   }
   return (
-    <Button {...props} ref={ref} onClick={onClick}>
+    <Button {...props} ref={ref} onClick={onClick} isLoading={isLoading}>
       {children || "Logout"}
     </Button>
   )
