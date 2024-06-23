@@ -41,7 +41,7 @@ export default function AccountVerification({ params }: Props) {
           this is bug.
         </CardContent>
         <CardFooter>
-          <Button>
+          <Button asChild>
             <Link href="/">Go to homepage</Link>
           </Button>
         </CardFooter>
@@ -56,7 +56,7 @@ export default function AccountVerification({ params }: Props) {
           Click the link below to continue logging in.
         </CardContent>
         <CardFooter>
-          <Button>
+          <Button asChild>
             <Link href="/login">Continue to log in</Link>
           </Button>
         </CardFooter>
