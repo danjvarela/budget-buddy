@@ -43,6 +43,8 @@ export default function LoginForm() {
     },
   })
 
+  const { isSubmitting } = form.formState
+
   const onSubmit = useCallback(
     async (data: LoginData) => {
       const res = await login(data)
@@ -119,7 +121,12 @@ export default function LoginForm() {
           </div>
         </div>
 
-        <Button type="submit" className="w-full" size="sm">
+        <Button
+          type="submit"
+          className="w-full"
+          size="sm"
+          isLoading={isSubmitting}
+        >
           Submit
         </Button>
       </form>
