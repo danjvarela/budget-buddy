@@ -4,6 +4,45 @@ import { cookies } from "next/headers"
 import api from "@/lib/api"
 import { POST_AUTH_URL_COOKIE_NAME } from "@/lib/constants"
 
+export async function resendVerificationEmail({ email }: { email: string }) {
+  try {
+    const { data } = await api.post<{ success: string } | { error: string }>(
+      "/verify-account-resend",
+      {
+        email,
+      }
+    )
+
+    return data
+  } catch (err) {
+    return {
+      error: "Something went wrong, please try again.",
+    }
+  }
+}
+
+export async function signup({
+  email,
+  password,
+  passwordConfirmation,
+}: {
+  email: string
+  password: string
+  passwordConfirmation: string
+}) {
+  try {
+    const { data } = await api.post<{ success: string }>("/create-account", {
+      email,
+      password,
+      ["password-confirm"]: passwordConfirmation,
+    })
+
+    return data
+  } catch (err) {
+    return { error: "Something went wrong, please try again." }
+  }
+}
+
 export async function login(body: { email: string; password: string }) {
   try {
     const { data, response } = await api.post<{ success: string }>(
