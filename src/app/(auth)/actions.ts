@@ -4,6 +4,52 @@ import { cookies } from "next/headers"
 import api, { ErrorResponse, SuccessResponse } from "@/lib/api"
 import { POST_AUTH_URL_COOKIE_NAME } from "@/lib/constants"
 
+export async function resetPassword({
+  password,
+  passwordConfirmation,
+  key,
+}: {
+  password: string
+  passwordConfirmation: string
+  key: string
+}) {
+  try {
+    const { data } = await api.post<SuccessResponse | ErrorResponse>(
+      "/reset-password",
+      {
+        key,
+        password,
+        "password-confirm": passwordConfirmation,
+      }
+    )
+
+    return data
+  } catch (err) {
+    console.error(err)
+    return {
+      error: "Something went wrong, please try again.",
+    }
+  }
+}
+
+export async function sendPasswordResetEmail({ email }: { email: string }) {
+  try {
+    const { data } = await api.post<SuccessResponse | ErrorResponse>(
+      "/reset-password-request",
+      {
+        email,
+      }
+    )
+
+    return data
+  } catch (err) {
+    console.error(err)
+    return {
+      error: "Something went wrong, please try again.",
+    }
+  }
+}
+
 export async function resendVerificationEmail({ email }: { email: string }) {
   try {
     const { data } = await api.post<SuccessResponse | ErrorResponse>(

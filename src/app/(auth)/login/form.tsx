@@ -119,19 +119,14 @@ export default function LoginForm() {
           </Link>
 
           <Link
-            href="/reset-password"
+            href="/forgot-password"
             className="underline transition-colors hover:text-foreground"
           >
             Forgot password
           </Link>
         </div>
 
-        <Button
-          type="submit"
-          className="w-full"
-          size="sm"
-          isLoading={isSubmitting}
-        >
+        <Button type="submit" className="w-full" isLoading={isSubmitting}>
           Submit
         </Button>
       </form>
