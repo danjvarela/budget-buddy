@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Eye, EyeOff } from "lucide-react"
+import { cn } from "@/lib/utils"
 import { Button } from "./button"
 import { Input } from "./input"
 
@@ -7,18 +8,22 @@ export interface PasswordInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {}
 
 const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
-  (props, ref) => {
+  ({ className, ...props }, ref) => {
     const [shown, setShown] = useState(false)
 
     return (
-      <div className="flex items-center space-x-2">
-        <Input type={shown ? "text" : "password"} ref={ref} {...props} />
+      <div className="relative flex items-center space-x-2">
+        <Input
+          className={cn("pr-12", className)}
+          type={shown ? "text" : "password"}
+          ref={ref}
+          {...props}
+        />
         <Button
-          size="icon"
           variant="ghost"
           onClick={() => setShown((prev) => !prev)}
           type="button"
-          className="shrink-0 grow-0"
+          className="absolute right-2 h-8 w-8 rounded-full p-0"
         >
           {shown ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
         </Button>
