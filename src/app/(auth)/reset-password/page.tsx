@@ -14,8 +14,8 @@ export default function ResetPasswordPage() {
   return (
     <Card className="w-full max-w-lg">
       <CardHeader>
-        <CardTitle>
-          <Link href="/login">
+        <CardTitle className="flex items-center">
+          <Link href="/forgot-password" className="mr-2">
             <Button size="icon" variant="ghost">
               <ChevronLeft />
             </Button>

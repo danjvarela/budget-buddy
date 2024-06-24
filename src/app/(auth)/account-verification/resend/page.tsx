@@ -2,23 +2,24 @@ import Link from "next/link"
 import { ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
+  Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import ResendVerificationForm from "../resend-verification-form"
+import ResendVerificationForm from "./form"
 
 export default function AccountVerificationResend() {
   return (
-    <>
+    <Card className="w-full max-w-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Link href="/login">
             <Button size="icon" variant="ghost">
               <ChevronLeft />
             </Button>
-          </Link>{" "}
+          </Link>
           Resend verification email
         </CardTitle>
         <CardDescription>
@@ -28,6 +29,6 @@ export default function AccountVerificationResend() {
       <CardContent>
         <ResendVerificationForm />
       </CardContent>
-    </>
+    </Card>
   )
 }

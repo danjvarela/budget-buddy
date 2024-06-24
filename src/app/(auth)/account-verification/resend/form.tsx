@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
-import { resendVerificationEmail } from "../actions"
+import { resendVerificationEmail } from "../../actions"
 
 const schema = z.object({
   email: z.string().email(),
