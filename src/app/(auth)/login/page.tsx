@@ -11,8 +11,8 @@ import LoginForm from "./form"
 
 export default function LoginPage() {
   return (
-    <div className="flex h-screen w-full items-center justify-center">
-      <Card className="w-[450px]">
+    <div className="flex h-screen w-full items-center justify-center px-2">
+      <Card className="w-full max-w-lg">
         <CardHeader>
           <CardTitle>Login to Budget Buddy</CardTitle>
           <CardDescription>
