@@ -45,7 +45,7 @@ export function useUrlState<T extends UrlStateValue>(
   )
 
   useEffect(() => {
-    const debouncedUpdatedSearchParams = debounce(updateSearchParams, 1000)
+    const debouncedUpdatedSearchParams = debounce(updateSearchParams, 500)
     debouncedUpdatedSearchParams(value)
   }, [value, updateSearchParams])
 
