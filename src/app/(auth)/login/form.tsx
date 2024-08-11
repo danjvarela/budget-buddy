@@ -54,6 +54,14 @@ export default function LoginForm() {
       const res = await login(data)
 
       if ("error" in res) {
+        if ("field-error" in res && Array.isArray(res["field-error"])) {
+          toast({
+            variant: "destructive",
+            description: `${res.error}: ${res["field-error"][1]}`,
+          })
+          return
+        }
+
         toast({
           variant: "destructive",
           description: res.error,

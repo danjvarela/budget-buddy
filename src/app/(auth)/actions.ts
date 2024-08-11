@@ -121,6 +121,7 @@ export async function login(body: { email: string; password: string }) {
       "/login",
       body
     )
+
     if (response.ok) {
       const token = response.headers.get("Authorization")
 
@@ -130,20 +131,11 @@ export async function login(body: { email: string; password: string }) {
       }
 
       return {
-        error:
-          "Logged in successfully but there is something wrong with the server.",
+        error: "Something went wrong, please try again.",
       }
     }
 
-    if (response.status.toString().startsWith("4")) {
-      return {
-        error: "Incorrect email or password",
-      }
-    }
-
-    return {
-      error: "Something went wrong, please try again.",
-    }
+    return data
   } catch (err) {
     console.error(err)
     return { error: "Something went wrong, please try again." }
