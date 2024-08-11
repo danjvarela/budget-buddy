@@ -14,7 +14,6 @@ export async function logout() {
     if ("error" in data) return data
 
     cookies().delete(SESSION_COOKIE_NAME)
-    api.token = undefined
 
     return data
   } catch (err) {

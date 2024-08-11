@@ -13,8 +13,6 @@ export async function getCurrentSessionServerSide() {
 
   if (!sessionCookie?.value) return null
 
-  api.setToken(sessionCookie?.value)
-
   const { data, response } = await api.get<Session>("/current-account")
 
   if (!response.ok) {

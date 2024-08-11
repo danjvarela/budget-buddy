@@ -12,10 +12,12 @@ export type ErrorResponse<T = {}> = T & {
 }
 
 class BudgetBuddyApi {
-  token?: string
-
   private resolvePath(path: string) {
     return new URL(path, env.BACKEND_URL).toString()
+  }
+
+  private getToken() {
+    return cookies().get(SESSION_COOKIE_NAME)?.value
   }
 
   private async httpReq<T>(
@@ -27,8 +29,10 @@ class BudgetBuddyApi {
       "Content-type": "application/json; charset=UTF-8",
     }
 
-    if (this.token) {
-      headers["Authorization"] = `Bearer ${this.token}`
+    const token = this.getToken()
+
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`
     }
 
     const response = await fetch(this.resolvePath(path), {
@@ -47,7 +51,6 @@ class BudgetBuddyApi {
   }
 
   authenticate(token: string) {
-    this.token = token
     cookies().set({
       name: SESSION_COOKIE_NAME,
       value: token,
@@ -55,10 +58,6 @@ class BudgetBuddyApi {
       path: "/",
       secure: process.env.NODE_ENV === "production",
     })
-  }
-
-  setToken(token: string) {
-    this.token = token
   }
 
   async get<T>(url: string, opts?: Omit<RequestInit, "method">) {
