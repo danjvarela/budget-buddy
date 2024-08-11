@@ -74,11 +74,10 @@ export default function ResendVerificationForm() {
         />
         <Button
           type="submit"
-          size="sm"
           className="w-full md:w-auto"
           isLoading={isSubmitting}
         >
-          Resend verification
+          Submit
         </Button>
       </form>
     </Form>
