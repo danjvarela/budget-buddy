@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { LogOut, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -12,9 +13,11 @@ import { logout } from "@/app/(auth)/actions"
 
 export default function ProfileMenu() {
   const session = useSession()
+  const router = useRouter()
 
   async function handleLogOut() {
     await logout()
+    router.push("/")
   }
 
   return (
