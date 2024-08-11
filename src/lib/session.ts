@@ -13,11 +13,13 @@ export async function getCurrentSessionServerSide() {
 
   if (!sessionCookie?.value) return null
 
-  const { data, response } = await api.get<Session>("/current-account")
+  const { data, response } = await api.get<{ data: Session }>(
+    "/current-account"
+  )
 
   if (!response.ok) {
     return null
   }
 
-  return data
+  return data.data
 }
