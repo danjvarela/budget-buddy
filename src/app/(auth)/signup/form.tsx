@@ -48,6 +48,8 @@ export default function SignupForm() {
     },
   })
 
+  const { isSubmitting } = form.formState
+
   const onSubmit = useCallback(
     async (data: SignupData) => {
       const res = await signup(data)
@@ -130,7 +132,12 @@ export default function SignupForm() {
           </Link>
         </div>
 
-        <Button type="submit" className="w-full" size="sm">
+        <Button
+          type="submit"
+          className="w-full"
+          size="sm"
+          isLoading={isSubmitting}
+        >
           Submit
         </Button>
       </form>

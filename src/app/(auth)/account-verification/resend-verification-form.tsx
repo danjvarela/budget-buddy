@@ -32,6 +32,8 @@ export default function ResendVerificationForm() {
     },
   })
 
+  const { isSubmitting } = form.formState
+
   async function onSubmit(data: ResendVerificationData) {
     const res = await resendVerificationEmail(data)
 
@@ -70,7 +72,9 @@ export default function ResendVerificationForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Resend verification</Button>
+        <Button type="submit" isLoading={isSubmitting}>
+          Resend verification
+        </Button>
       </form>
     </Form>
   )
