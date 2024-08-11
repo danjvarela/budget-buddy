@@ -6,7 +6,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import Messages from "@/components/messages"
 import SocialLogin from "../social-login"
 import LoginForm from "./form"
 
@@ -22,7 +21,6 @@ export default function LoginPage() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Messages />
         <LoginForm />
         <div className="flex items-center gap-2">
           <div className="flex-1">

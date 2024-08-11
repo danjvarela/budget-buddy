@@ -69,7 +69,7 @@ export default function ChangeEmail() {
   )
 
   return (
-    <Section title="Change Email">
+    <Section title="Change Email" className="mt-8">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

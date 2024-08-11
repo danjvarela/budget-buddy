@@ -4,6 +4,7 @@ import "./globals.css"
 import { getCurrentSessionServerSide } from "@/lib/session"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
+import Messages from "@/components/messages"
 import Providers from "./providers"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -28,6 +29,7 @@ export default async function RootLayout({
           inter.className
         )}
       >
+        <Messages />
         <Providers session={session}>{children}</Providers>
         <Toaster />
       </body>
