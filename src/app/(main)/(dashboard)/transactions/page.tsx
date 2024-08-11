@@ -1,3 +1,8 @@
+"use client"
+
+import { useRouter } from "next/navigation"
+
 export default function TransactionsPage() {
-  return <div>This is the transactions page</div>
+  const router = useRouter()
+  router.push("/transactions/expenses")
 }
