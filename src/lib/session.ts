@@ -15,13 +15,11 @@ export async function getCurrentSessionServerSide() {
 
   api.setToken(sessionCookie?.value)
 
-  const { data, response } = await api.get<{
-    data: Session
-  }>("/current-account")
+  const { data, response } = await api.get<Session>("/current-account")
 
   if (!response.ok) {
     return null
   }
 
-  return data.data
+  return data
 }

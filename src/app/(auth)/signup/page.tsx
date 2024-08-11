@@ -6,7 +6,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import BackButton from "@/components/back-button"
 import SocialLogin from "../social-login"
 import SignupForm from "./form"
 
@@ -15,7 +14,6 @@ export default function SignupPage() {
     <Card className="w-full max-w-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <BackButton />
           Sign up to Budget Buddy
         </CardTitle>
         <CardDescription>

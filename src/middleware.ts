@@ -1,42 +1,29 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+import { AUTH_PATHS } from "./lib/constants"
 import { getCurrentSessionServerSide } from "./lib/session"
 
-const unprotectedPaths = [
-  "/",
-  "/auth/google/callback",
-  "/login",
-  "/signup",
-  "/auth/verify-account",
-  "/account-verification",
-]
+function isAuthPath(path: string) {
+  return AUTH_PATHS.includes(path)
+}
 
-const authPaths = [
-  "/auth/google/callback",
-  "/login",
-  "/signup",
-  "/auth/verify-account",
-  "/account-verification",
-]
+function isPathProtected(path: string) {
+  return path !== "/" && !isAuthPath(path)
+}
 
 export async function middleware(req: NextRequest) {
   const session = await getCurrentSessionServerSide()
+  const path = req.nextUrl.pathname
 
   // if user is logged in, prevent them from visiting auth related paths
-  if (
-    session &&
-    authPaths.some((path) => req.nextUrl.pathname.startsWith(path))
-  ) {
-    return NextResponse.redirect(new URL("/", req.url))
+  if (session && isAuthPath(path)) {
+    return NextResponse.redirect(new URL("/dashboard", req.url))
   }
 
   // if user is not logged in, redirect them to the login page if they are on a protected path.
   // also attach a `from` searchParam so we know where to redirect the user after
   // logging in
-  if (
-    !session &&
-    !unprotectedPaths.some((path) => req.nextUrl.pathname.startsWith(path))
-  ) {
+  if (!session && isPathProtected(path)) {
     const url = new URL("/login", req.url)
     url.searchParams.set("from", req.nextUrl.pathname)
     return NextResponse.redirect(url)

@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { SiGoogle, SiGoogleHex } from "@icons-pack/react-simple-icons"
 import { Button } from "@/components/ui/button"
@@ -11,7 +11,10 @@ export default function SocialLogin() {
   const router = useRouter()
   const { toast } = useToast()
   const searchParams = useSearchParams()
-  const redirectUrlAfterLogin = searchParams.get("from") || "/"
+  const redirectUrlAfterLogin = useMemo(() => {
+    const from = searchParams.get("from")
+    return !from || from === "/" ? "/dashboard" : from
+  }, [searchParams])
   const [isLoading, setIsLoading] = useState(false)
 
   const signinWithGoogle = useCallback(async () => {
