@@ -37,8 +37,8 @@ function NavLinks({ onClick }: { onClick?: () => void }) {
       <NavLink href={API_DOCS_URL} target="_blank" onClick={onClick}>
         API Documentation
       </NavLink>
-      <NavLink href="/blogs" onClick={onClick}>
-        Blogs
+      <NavLink href="/dashboard" onClick={onClick}>
+        Dashboard
       </NavLink>
     </>
   )
