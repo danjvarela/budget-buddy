@@ -8,6 +8,7 @@ export type SuccessResponse<T = {}> = T & {
 
 export type ErrorResponse<T = {}> = T & {
   error: string
+  "field-error": string[]
 }
 
 class BudgetBuddyApi {

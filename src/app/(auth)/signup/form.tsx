@@ -57,10 +57,18 @@ export default function SignupForm() {
       const res = await signup(data)
 
       if ("error" in res) {
-        toast({
-          variant: "destructive",
-          description: res.error,
-        })
+        if ("field-error" in res) {
+          toast({
+            variant: "destructive",
+            title: res.error,
+            description: res["field-error"][1],
+          })
+        } else {
+          toast({
+            variant: "destructive",
+            description: res.error,
+          })
+        }
         return
       }
 
