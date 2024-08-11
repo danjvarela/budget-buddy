@@ -19,7 +19,7 @@ export default function ResetPasswordPage() {
             <Button size="icon" variant="ghost">
               <ChevronLeft />
             </Button>
-          </Link>{" "}
+          </Link>
           Reset Password
         </CardTitle>
         <CardDescription>

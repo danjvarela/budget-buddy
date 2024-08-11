@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import BackButton from "@/components/back-button"
 import Messages from "../messages"
 import SocialLogin from "../social-login"
 import LoginForm from "./form"
@@ -14,7 +15,10 @@ export default function LoginPage() {
   return (
     <Card className="w-full max-w-lg">
       <CardHeader>
-        <CardTitle>Login to Budget Buddy</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <BackButton />
+          Login to Budget Buddy
+        </CardTitle>
         <CardDescription>
           Enter your email and password to continue.
         </CardDescription>
