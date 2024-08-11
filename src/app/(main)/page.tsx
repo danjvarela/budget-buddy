@@ -4,18 +4,34 @@ import { KeyRound } from "lucide-react"
 import { API_DOCS_URL } from "@/lib/constants"
 import { getCurrentSessionServerSide } from "@/lib/session"
 import { Button } from "@/components/ui/button"
+import Header from "@/components/header"
+import { NavLinkProps } from "@/components/header/nav-link"
 import graphOnLaptop from "./assets/graph-on-laptop.jpg"
 import laptopComputer from "./assets/laptop-computer.jpg"
 import FeatureCard from "./feature-card"
-import Header from "./header"
 import HeroImage from "./hero-image"
+
+const navLinks: NavLinkProps[] = [
+  { children: "Features", href: "#features", id: "features" },
+  {
+    children: "API Documentation",
+    href: API_DOCS_URL,
+    id: "api-documentation",
+  },
+  {
+    children: "Dashboard",
+    href: "/dashboard",
+    requireAuth: true,
+    id: "dashboard",
+  },
+]
 
 export default async function Home() {
   const session = await getCurrentSessionServerSide()
 
   return (
     <>
-      <Header />
+      <Header navLinks={navLinks} />
       <main className="bg-secondary py-20">
         <div className="container flex max-w-screen-xl flex-row items-center justify-center gap-8 md:gap-4">
           <div className="w-full  md:basis-1/2">

@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import React, { MouseEventHandler, useCallback, useState } from "react"
 import Link from "next/link"
 import { ArrowRight, Menu } from "lucide-react"
-import { API_DOCS_URL } from "@/lib/constants"
+import { HEADER_HEIGHT } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -14,43 +14,44 @@ import {
 } from "@/components/ui/sheet"
 import { useSession } from "@/components/auth-provider"
 import Logo from "@/components/logo"
+import NavLink, { NavLinkProps } from "./nav-link"
 import ProfileMenu from "./profile-menu"
 
-interface NavLinkProps extends React.ComponentProps<typeof Link> {}
-
-function NavLink({ href, children, ...props }: NavLinkProps) {
-  return (
-    <Link
-      href={href}
-      className="text-base leading-none text-muted-foreground transition-colors hover:text-foreground md:text-sm"
-      {...props}
-    >
-      {children}
-    </Link>
+function NavLinks({
+  closeSheet,
+  navLinks,
+}: {
+  navLinks: NavLinkProps[]
+  closeSheet?: () => void
+}) {
+  const resolvedOnClick: (
+    onClick: NavLinkProps["onClick"]
+  ) => MouseEventHandler<HTMLAnchorElement> = useCallback(
+    (onClick) => (e) => {
+      onClick?.(e)
+      closeSheet?.()
+    },
+    [closeSheet]
   )
-}
-
-function NavLinks({ onClick }: { onClick?: () => void }) {
-  const session = useSession()
 
   return (
     <>
-      <NavLink href="#features" onClick={onClick}>
-        Features
-      </NavLink>
-      <NavLink href={API_DOCS_URL} target="_blank" onClick={onClick}>
-        API Documentation
-      </NavLink>
-      {session && (
-        <NavLink href="/dashboard" onClick={onClick}>
-          Dashboard
-        </NavLink>
-      )}
+      {navLinks.map(({ onClick, id, ...props }) => (
+        <NavLink
+          key={id}
+          id={id}
+          onClick={resolvedOnClick(onClick)}
+          {...props}
+        />
+      ))}
     </>
   )
 }
 
-export default function Header() {
+const Header = React.forwardRef<
+  React.ElementRef<"header">,
+  { navLinks: NavLinkProps[] }
+>(({ navLinks }, ref) => {
   const [open, setOpen] = useState(false)
   const session = useSession()
 
@@ -59,8 +60,8 @@ export default function Header() {
   }
 
   return (
-    <header className="border-b">
-      <div className="container flex max-w-screen-xl items-center justify-between py-4">
+    <header className="border-b" ref={ref} style={{ height: HEADER_HEIGHT }}>
+      <div className="container flex h-full max-w-screen-xl items-center justify-between">
         <div className="flex items-center gap-12">
           <Logo className="hidden md:block" />
 
@@ -78,13 +79,13 @@ export default function Header() {
               </SheetHeader>
 
               <ul className="mt-6 flex flex-col gap-2">
-                <NavLinks />
+                <NavLinks navLinks={navLinks} closeSheet={closeSheet} />
               </ul>
             </SheetContent>
           </Sheet>
 
           <ul className="hidden gap-8 md:flex">
-            <NavLinks />
+            <NavLinks navLinks={navLinks} closeSheet={closeSheet} />
           </ul>
         </div>
 
@@ -100,4 +101,8 @@ export default function Header() {
       </div>
     </header>
   )
-}
+})
+
+Header.displayName = "Header"
+
+export default Header
