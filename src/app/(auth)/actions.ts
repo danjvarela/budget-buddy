@@ -1,12 +1,33 @@
 "use server"
 
 import { cookies } from "next/headers"
-import api from "@/lib/api"
-import { POST_AUTH_URL_COOKIE_NAME } from "@/lib/constants"
+import api, { ErrorResponse, SuccessResponse } from "@/lib/api"
+import { POST_AUTH_URL_COOKIE_NAME, SESSION_COOKIE_NAME } from "@/lib/constants"
+
+export async function logout() {
+  try {
+    const { data } = await api.post<SuccessResponse | ErrorResponse>(
+      "/logout",
+      {}
+    )
+
+    if ("error" in data) return data
+
+    cookies().delete(SESSION_COOKIE_NAME)
+    api.token = undefined
+
+    return data
+  } catch (err) {
+    console.error(err)
+    return {
+      error: "Something went wrong, please try again.",
+    }
+  }
+}
 
 export async function resendVerificationEmail({ email }: { email: string }) {
   try {
-    const { data } = await api.post<{ success: string } | { error: string }>(
+    const { data } = await api.post<SuccessResponse | ErrorResponse>(
       "/verify-account-resend",
       {
         email,
@@ -15,6 +36,7 @@ export async function resendVerificationEmail({ email }: { email: string }) {
 
     return data
   } catch (err) {
+    console.error(err)
     return {
       error: "Something went wrong, please try again.",
     }
@@ -31,21 +53,25 @@ export async function signup({
   passwordConfirmation: string
 }) {
   try {
-    const { data } = await api.post<{ success: string }>("/create-account", {
-      email,
-      password,
-      ["password-confirm"]: passwordConfirmation,
-    })
+    const { data } = await api.post<SuccessResponse | ErrorResponse>(
+      "/create-account",
+      {
+        email,
+        password,
+        ["password-confirm"]: passwordConfirmation,
+      }
+    )
 
     return data
   } catch (err) {
+    console.error(err)
     return { error: "Something went wrong, please try again." }
   }
 }
 
 export async function login(body: { email: string; password: string }) {
   try {
-    const { data, response } = await api.post<{ success: string }>(
+    const { data, response } = await api.post<SuccessResponse | ErrorResponse>(
       "/login",
       body
     )
@@ -73,6 +99,7 @@ export async function login(body: { email: string; password: string }) {
       error: "Something went wrong, please try again.",
     }
   } catch (err) {
+    console.error(err)
     return { error: "Something went wrong, please try again." }
   }
 }
@@ -93,17 +120,17 @@ export async function getGoogleAuthorizationURL({
   }
 
   try {
-    const { data, response } = await api.post<{ authorize_url: string }>(
-      "/auth/google",
-      {}
-    )
+    const { data, response } = await api.post<
+      { authorize_url: string } | ErrorResponse
+    >("/auth/google", {})
 
-    if (response.ok) {
+    if (response.ok && "authorize_url" in data) {
       return { authorizeUrl: data.authorize_url }
     }
 
     return { error: "Something went wrong, please try again." }
   } catch (err) {
+    console.error(err)
     return { error: "Something went wrong, please try again." }
   }
 }

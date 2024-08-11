@@ -2,6 +2,14 @@ import { cookies } from "next/headers"
 import { env } from "@/env.mjs"
 import { SESSION_COOKIE_NAME } from "./constants"
 
+export type SuccessResponse<T = {}> = T & {
+  success: string
+}
+
+export type ErrorResponse<T = {}> = T & {
+  error: string
+}
+
 class BudgetBuddyApi {
   token?: string
 

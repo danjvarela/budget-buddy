@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { getCurrentSessionServerSide } from "@/lib/session"
+import LogoutButton from "./(auth)/logout-button"
 
 export default async function Home() {
   const session = await getCurrentSessionServerSide()
@@ -7,7 +8,10 @@ export default async function Home() {
   return (
     <main className="">
       {session ? (
-        <div>You are logged in as {JSON.stringify(session)}</div>
+        <>
+          <div>You are logged in as {JSON.stringify(session)}</div>
+          <LogoutButton />
+        </>
       ) : (
         <>
           <Link href="/login">Login</Link>
