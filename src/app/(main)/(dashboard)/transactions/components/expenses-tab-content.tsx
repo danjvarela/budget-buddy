@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { TabsContent } from "@/components/ui/tabs"
+import { ExpensesSearchInput } from "./expenses-search-input"
 import TransactionsTable from "./expenses-table"
 
 export default function ExpensesTabContent() {
@@ -18,7 +19,7 @@ export default function ExpensesTabContent() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <div className="flex gap-4">
-            <Input placeholder="Search expenses" className="h-9 w-[250px]" />
+            <ExpensesSearchInput className="w-[250px]" />
             <Select defaultValue="today">
               <SelectTrigger className="h-9 w-[150px]">
                 <SelectValue placeholder="Select date" />
