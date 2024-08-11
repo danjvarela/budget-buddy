@@ -10,11 +10,13 @@ export default function PageHeading({
   className?: string
 }>) {
   return (
-    <div className={cn("border-b py-6", className)}>
-      <h1 className="text-3xl font-bold leading-none tracking-tight">
+    <div className={cn("border-b py-4", className)}>
+      <h1 className="text-2xl font-bold leading-none tracking-tight md:text-3xl">
         {pageTitle}
       </h1>
-      <p className="mt-1 text-muted-foreground">{pageDescription}</p>
+      <p className="mt-1 text-sm text-muted-foreground md:text-base">
+        {pageDescription}
+      </p>
     </div>
   )
 }

@@ -19,7 +19,7 @@ export default function TransactionTabs({
     <Tabs
       value={value}
       onValueChange={(value: string) => router.push(`/transactions/${value}`)}
-      className="mt-4 w-full"
+      className="w-full"
     >
       <TabsList>
         <TabsTrigger value="expenses">Expenses</TabsTrigger>

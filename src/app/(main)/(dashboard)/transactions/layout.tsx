@@ -8,7 +8,7 @@ export default function TransactionsLayout({
     <div className="flex flex-col gap-4">
       <PageHeading
         pageTitle="Transactions"
-        pageDescription="Log your daily transactions as they come"
+        pageDescription="Log and view your daily transactions as they come"
       />
 
       <TransactionTabs>{children}</TransactionTabs>
