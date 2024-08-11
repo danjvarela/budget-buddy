@@ -7,7 +7,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-interface HeroImageProps {
+type Props = {
   src: StaticImageData
   alt: string
   username: string
@@ -15,13 +15,13 @@ interface HeroImageProps {
   unsplashLink: string
 }
 
-export default function HeroImage({
+export function HeroImage({
   src,
   alt,
   username,
   userHref,
   unsplashLink,
-}: HeroImageProps) {
+}: Props) {
   return (
     <TooltipProvider>
       <Tooltip>

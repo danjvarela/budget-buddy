@@ -4,12 +4,12 @@ import { KeyRound } from "lucide-react"
 import { API_DOCS_URL } from "@/lib/constants"
 import { getCurrentSessionServerSide } from "@/lib/session"
 import { Button } from "@/components/ui/button"
+import { FeatureCard } from "@/components/feature-card"
 import Header from "@/components/header"
 import { NavLinkProps } from "@/components/header/nav-link"
+import { HeroImage } from "@/components/hero-image"
 import graphOnLaptop from "./assets/graph-on-laptop.jpg"
 import laptopComputer from "./assets/laptop-computer.jpg"
-import FeatureCard from "./components/feature-card"
-import HeroImage from "./components/hero-image"
 
 const navLinks: NavLinkProps[] = [
   { children: "Features", href: "#features", id: "features" },

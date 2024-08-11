@@ -5,7 +5,6 @@ import { NavLinkProps } from "@/components/header/nav-link"
 const navLinks: NavLinkProps[] = [
   { children: "Overview", href: "/dashboard", id: "dashboard" },
   { children: "Transactions", href: "/transactions", id: "transactions" },
-  { children: "Settings", href: "/settings", id: "settings" },
 ]
 
 export default function DashboardLayout({

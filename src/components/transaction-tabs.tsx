@@ -4,9 +4,7 @@ import { useMemo } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-export default function TransactionTabs({
-  children,
-}: React.PropsWithChildren<{}>) {
+export function TransactionTabs({ children }: React.PropsWithChildren<{}>) {
   const router = useRouter()
   const params = useParams()
 

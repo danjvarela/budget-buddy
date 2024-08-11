@@ -1,16 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card"
 
-interface FeatureCardProps {
+type Props = {
   icon: React.ReactNode
   description: string
   title: string
 }
 
-export default function FeatureCard({
-  icon,
-  description,
-  title,
-}: FeatureCardProps) {
+export function FeatureCard({ icon, description, title }: Props) {
   return (
     <Card className="aspect-[1.618] w-full max-w-xs">
       <CardContent className="flex flex-col items-start gap-3 py-4">
