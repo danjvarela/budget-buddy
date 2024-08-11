@@ -1,10 +1,13 @@
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 import LoginForm from "./form"
+import SocialLogin from "./social-login"
 
 export default function LoginPage() {
   return (
@@ -16,7 +19,21 @@ export default function LoginPage() {
             Enter your email and password to continue.
           </CardDescription>
         </CardHeader>
-        <LoginForm />
+        <CardContent>
+          <LoginForm />
+          <div className="flex items-center gap-2 py-4">
+            <div className="flex-1">
+              <Separator />
+            </div>
+            <span className="text-sm text-muted-foreground">
+              or continue with
+            </span>
+            <div className="flex-1">
+              <Separator />
+            </div>
+          </div>
+          <SocialLogin />
+        </CardContent>
       </Card>
     </div>
   )
