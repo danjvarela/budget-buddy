@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback } from "react"
+import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -18,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
 import { useToast } from "@/components/ui/use-toast"
-import { login } from "./actions"
+import { login } from "../actions"
 
 const schema = z.object({
   email: z.string().email({ message: "not a valid email" }),
@@ -96,6 +97,16 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
+
+        <div className="text-sm text-muted-foreground">
+          Don{"'"}t have an account?{" "}
+          <Link
+            href="/signup"
+            className="underline transition-colors hover:text-foreground"
+          >
+            Create one
+          </Link>
+        </div>
 
         <Button type="submit" className="w-full" size="sm">
           Submit

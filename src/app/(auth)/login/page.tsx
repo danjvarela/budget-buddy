@@ -6,8 +6,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import SocialLogin from "../social-login"
 import LoginForm from "./form"
-import SocialLogin from "./social-login"
 
 export default function LoginPage() {
   return (
