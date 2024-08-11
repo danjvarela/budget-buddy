@@ -9,8 +9,11 @@ export const AUTH_PATHS = [
   "/login",
   "/signup",
   "/auth/verify-account",
+  // "/auth/verify-email-change",
   "/account-verification",
   "/account-verification/resend",
   "/forgot-password",
   "/reset-password",
 ]
+
+export const PATHS_TO_OMIT = ["/auth/verify-email-change"]

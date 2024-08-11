@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { AUTH_PATHS } from "./lib/constants"
+import { AUTH_PATHS, PATHS_TO_OMIT } from "./lib/constants"
 import { getCurrentSessionServerSide } from "./lib/session"
 
 function isAuthPath(path: string) {
@@ -14,6 +14,10 @@ function isPathProtected(path: string) {
 export async function middleware(req: NextRequest) {
   const session = await getCurrentSessionServerSide()
   const path = req.nextUrl.pathname
+
+  if (PATHS_TO_OMIT.includes(path)) {
+    return NextResponse.next()
+  }
 
   // if user is logged in, prevent them from visiting auth related paths
   if (session && isAuthPath(path)) {

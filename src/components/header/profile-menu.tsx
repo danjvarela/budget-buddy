@@ -31,7 +31,7 @@ export default function ProfileMenu() {
         <DropdownMenuItem asChild>
           <Link href="/profile">
             <User className="mr-2 h-4 w-4" />
-            <span>Edit profile</span>
+            <span>Profile</span>
           </Link>
         </DropdownMenuItem>
 

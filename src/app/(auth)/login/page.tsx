@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import Messages from "../messages"
+import Messages from "@/components/messages"
 import SocialLogin from "../social-login"
 import LoginForm from "./form"
 

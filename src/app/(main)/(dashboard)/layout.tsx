@@ -1,6 +1,7 @@
 import { HEADER_HEIGHT } from "@/lib/constants"
 import Header from "@/components/header"
 import { NavLinkProps } from "@/components/header/nav-link"
+import Messages from "@/components/messages"
 
 const navLinks: NavLinkProps[] = [
   { children: "Overview", href: "/dashboard", id: "dashboard" },
@@ -15,9 +16,10 @@ export default function DashboardLayout({
     <>
       <Header navLinks={navLinks} />
       <div
-        className="container flex max-w-screen-xl items-center justify-center overflow-auto border"
+        className="container max-w-screen-xl overflow-auto"
         style={{ height: `calc(100vh - ${HEADER_HEIGHT}px)` }}
       >
+        <Messages />
         {children}
       </div>
     </>
