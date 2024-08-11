@@ -32,10 +32,7 @@ class BudgetBuddyApi {
     })
 
     return {
-      data:
-        opts.method?.toLowerCase() === "delete"
-          ? null
-          : ((await response.json()) as unknown as T),
+      data: (await response.json()) as unknown as T,
       response,
     }
   }
