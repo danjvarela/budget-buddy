@@ -1,4 +1,6 @@
+import { cookies } from "next/headers"
 import { env } from "@/env.mjs"
+import { SESSION_COOKIE_NAME } from "./constants"
 
 class BudgetBuddyApi {
   token?: string
@@ -7,13 +9,23 @@ class BudgetBuddyApi {
     return new URL(path, env.BACKEND_URL).toString()
   }
 
-  private async httpReq<T>(path: string, opts: RequestInit) {
+  private async httpReq<T>(
+    path: string,
+    opts: Omit<RequestInit, "body"> & { body?: unknown }
+  ) {
+    const headers: RequestInit["headers"] = {
+      Accept: "application/json",
+      "Content-type": "application/json; charset=UTF-8",
+    }
+
+    if (this.token) {
+      headers["Authorization"] = `Bearer ${this.token}`
+    }
+
     const response = await fetch(this.resolvePath(path), {
       ...opts,
       headers: {
-        Accept: "application/json",
-        "Content-type": "application/json; charset=UTF-8",
-        Authorization: `Bearer ${this.token ? this.token : ""}`,
+        ...headers,
         ...opts.headers,
       },
       body: opts.body ? JSON.stringify(opts.body) : null,
@@ -24,22 +36,29 @@ class BudgetBuddyApi {
         opts.method?.toLowerCase() === "delete"
           ? null
           : ((await response.json()) as unknown as T),
-      ...response,
+      response,
     }
   }
 
   authenticate(token: string) {
     this.token = token
+    cookies().set({
+      name: SESSION_COOKIE_NAME,
+      value: token,
+      httpOnly: true,
+      path: "/",
+      secure: process.env.NODE_ENV === "production",
+    })
   }
 
-  async get<T>(url: string, opts: Omit<RequestInit, "method">) {
+  async get<T>(url: string, opts?: Omit<RequestInit, "method">) {
     return await this.httpReq<T>(url, { method: "GET", ...opts })
   }
 
   async post<T>(
     url: string,
-    body: BodyInit,
-    opts: Omit<RequestInit, "body" | "method">
+    body: unknown,
+    opts?: Omit<RequestInit, "body" | "method">
   ) {
     return await this.httpReq<T>(url, { body, method: "POST", ...opts })
   }
@@ -47,7 +66,7 @@ class BudgetBuddyApi {
   async put<T>(
     url: string,
     body: BodyInit,
-    opts: Omit<RequestInit, "body" | "method">
+    opts?: Omit<RequestInit, "body" | "method">
   ) {
     return await this.httpReq<T>(url, { body, method: "PUT", ...opts })
   }
@@ -55,7 +74,7 @@ class BudgetBuddyApi {
   async patch<T>(
     url: string,
     body: BodyInit,
-    opts: Omit<RequestInit, "body" | "method">
+    opts?: Omit<RequestInit, "body" | "method">
   ) {
     return await this.httpReq<T>(url, { body, method: "PATCH", ...opts })
   }
