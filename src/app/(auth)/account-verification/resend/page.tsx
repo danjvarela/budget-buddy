@@ -3,7 +3,7 @@ import { ChevronLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   CardContent,
-  CardFooter,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -17,18 +17,17 @@ export default function AccountVerificationResend() {
           <Link href="/login">
             <Button size="icon" variant="ghost">
               <ChevronLeft />
-            </Button>{" "}
+            </Button>
           </Link>{" "}
           Resend verification email
         </CardTitle>
+        <CardDescription>
+          Enter the email you used to signup and click submit.
+        </CardDescription>
       </CardHeader>
-      <CardContent className="text-sm text-muted-foreground">
-        Enter the email you used to signup and click the button below to send a
-        new verification email.
-      </CardContent>
-      <CardFooter>
+      <CardContent>
         <ResendVerificationForm />
-      </CardFooter>
+      </CardContent>
     </>
   )
 }
