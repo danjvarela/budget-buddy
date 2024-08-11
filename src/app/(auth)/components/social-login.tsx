@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { SiGoogle, SiGoogleHex } from "@icons-pack/react-simple-icons"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
-import { getGoogleAuthorizationURL } from "./actions"
+import { getGoogleAuthorizationURL } from "../actions"
 
 export default function SocialLogin() {
   const router = useRouter()

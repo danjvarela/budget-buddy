@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
 import { useToast } from "@/components/ui/use-toast"
-import { requestChangeEmail } from "./actions"
+import { requestChangeEmail } from "../actions"
 import Section from "./section"
 
 const schema = z.object({

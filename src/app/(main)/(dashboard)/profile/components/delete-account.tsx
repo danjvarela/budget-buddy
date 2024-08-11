@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/form"
 import { PasswordInput } from "@/components/ui/password-input"
 import { useToast } from "@/components/ui/use-toast"
-import { deleteAccount } from "./actions"
+import { deleteAccount } from "../actions"
 import Section from "./section"
 
 const schema = z.object({

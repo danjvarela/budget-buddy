@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form"
 import { PasswordInput } from "@/components/ui/password-input"
 import { useToast } from "@/components/ui/use-toast"
-import { changePassword } from "./actions"
+import { changePassword } from "../actions"
 import Section from "./section"
 
 const schema = z

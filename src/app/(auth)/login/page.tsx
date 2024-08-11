@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import SocialLogin from "../social-login"
+import SocialLogin from "../components/social-login"
 import LoginForm from "./form"
 
 export default function LoginPage() {

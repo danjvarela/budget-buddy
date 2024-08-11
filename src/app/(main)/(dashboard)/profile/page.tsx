@@ -2,9 +2,9 @@ import React from "react"
 import { getCurrentSessionServerSide } from "@/lib/session"
 import { Separator } from "@/components/ui/separator"
 import PageHeading from "../components/page-heading"
-import ChangeEmail from "./change-email"
-import ChangePassword from "./change-password"
-import DeleteAccount from "./delete-account"
+import ChangeEmail from "./components/change-email"
+import ChangePassword from "./components/change-password"
+import DeleteAccount from "./components/delete-account"
 
 export default async function ProfilePage() {
   const session = await getCurrentSessionServerSide()
