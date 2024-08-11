@@ -4,44 +4,42 @@ import { useCallback, useEffect } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useToast } from "@/components/ui/use-toast"
 
-const MESSAGE_SEARCH_PARAM_KEY = "message"
-
 export default function Messages() {
   const router = useRouter()
   const pathname = usePathname()
   const { toast } = useToast()
   const searchParams = useSearchParams()
 
-  const messageId = searchParams.get(MESSAGE_SEARCH_PARAM_KEY)
+  const errorMessage = searchParams.get("error")
+  const successMessage = searchParams.get("success")
 
-  const onOpenChange = useCallback(
-    (open: boolean) => {
+  const removeAssociatedSearchParam = useCallback(
+    (searchParamKey: string) => (open: boolean) => {
       if (!open) {
         const newSearchParams = new URLSearchParams(searchParams.toString())
-        newSearchParams.delete(MESSAGE_SEARCH_PARAM_KEY)
+        newSearchParams.delete(searchParamKey)
         router.replace(`${pathname}?${newSearchParams.toString()}`)
       }
     },
-    [router, pathname, searchParams]
+    [searchParams, router, pathname]
   )
 
   useEffect(() => {
-    if (messageId === "account-verification-fail") {
+    if (errorMessage) {
       toast({
         variant: "destructive",
-        title: "Unable to verify account",
-        description: "Account verification link is either invalid or expired.",
-        onOpenChange,
+        description: errorMessage,
+        onOpenChange: removeAssociatedSearchParam("error"),
       })
     }
 
-    if (messageId === "account-verification-success") {
+    if (successMessage) {
       toast({
-        description: "Your account has been verified.",
-        onOpenChange,
+        description: successMessage,
+        onOpenChange: removeAssociatedSearchParam("success"),
       })
     }
-  }, [toast, messageId, onOpenChange])
+  }, [toast, errorMessage, successMessage, removeAssociatedSearchParam])
 
   return null
 }

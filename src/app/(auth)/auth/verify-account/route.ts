@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import api from "@/lib/api"
+import api, { ErrorResponse, SuccessResponse } from "@/lib/api"
 
 export async function GET(req: NextRequest) {
   const key = req.nextUrl.searchParams.get("key")
@@ -11,19 +11,22 @@ export async function GET(req: NextRequest) {
   const redirectUrl = new URL("/login", req.url)
 
   try {
-    const { response } = await api.post("/verify-account", { key })
+    const { data, response } = await api.post<SuccessResponse | ErrorResponse>(
+      "/verify-account",
+      { key }
+    )
 
     if (response.ok) {
-      redirectUrl.searchParams.set("message", "account-verification-success")
+      if ("success" in data) {
+        redirectUrl.searchParams.set("success", data.success)
+      }
       return NextResponse.redirect(redirectUrl)
     }
 
-    if (response.status.toString().startsWith("4")) {
-      redirectUrl.searchParams.set("message", "account-verification-fail")
+    if ("error" in data) {
+      redirectUrl.searchParams.set("error", data.error)
       return NextResponse.redirect(redirectUrl)
     }
-
-    return NextResponse.json(null, { status: 500 })
   } catch (err) {
     return NextResponse.json(null, { status: 500 })
   }
