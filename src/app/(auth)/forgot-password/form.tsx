@@ -74,7 +74,6 @@ export default function RequestPasswordResetForm() {
         />
         <Button
           type="submit"
-          size="sm"
           className="w-full md:w-auto"
           isLoading={isSubmitting}
         >
