@@ -2,6 +2,7 @@ import Link from "next/link"
 import { SiNextdotjs, SiRubyonrails } from "@icons-pack/react-simple-icons"
 import { KeyRound } from "lucide-react"
 import { API_DOCS_URL } from "@/lib/constants"
+import { getCurrentSessionServerSide } from "@/lib/session"
 import { Button } from "@/components/ui/button"
 import graphOnLaptop from "./assets/graph-on-laptop.jpg"
 import laptopComputer from "./assets/laptop-computer.jpg"
@@ -10,6 +11,8 @@ import Header from "./header"
 import HeroImage from "./hero-image"
 
 export default async function Home() {
+  const session = await getCurrentSessionServerSide()
+
   return (
     <>
       <Header />
@@ -25,9 +28,15 @@ export default async function Home() {
             </p>
 
             <div className="mt-4 hidden gap-4 md:flex">
-              <Link href="/login">
-                <Button size="lg">Get started</Button>
-              </Link>
+              {!!session ? (
+                <Link href="/dashboard">
+                  <Button size="lg">Get started</Button>
+                </Link>
+              ) : (
+                <Link href="/login">
+                  <Button size="lg">Get started</Button>
+                </Link>
+              )}
               <Link href="https://github.com/danjvarela/budget-buddy">
                 <Button size="lg" variant="outline">
                   View source code

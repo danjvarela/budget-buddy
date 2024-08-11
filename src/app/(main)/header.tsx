@@ -12,7 +12,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { useSession } from "@/components/auth-provider"
 import Logo from "@/components/logo"
+import ProfileMenu from "./profile-menu"
 
 interface NavLinkProps extends React.ComponentProps<typeof Link> {}
 
@@ -29,6 +31,8 @@ function NavLink({ href, children, ...props }: NavLinkProps) {
 }
 
 function NavLinks({ onClick }: { onClick?: () => void }) {
+  const session = useSession()
+
   return (
     <>
       <NavLink href="#features" onClick={onClick}>
@@ -37,15 +41,18 @@ function NavLinks({ onClick }: { onClick?: () => void }) {
       <NavLink href={API_DOCS_URL} target="_blank" onClick={onClick}>
         API Documentation
       </NavLink>
-      <NavLink href="/dashboard" onClick={onClick}>
-        Dashboard
-      </NavLink>
+      {session && (
+        <NavLink href="/dashboard" onClick={onClick}>
+          Dashboard
+        </NavLink>
+      )}
     </>
   )
 }
 
 export default function Header() {
   const [open, setOpen] = useState(false)
+  const session = useSession()
 
   function closeSheet() {
     setOpen(false)
@@ -81,11 +88,15 @@ export default function Header() {
           </ul>
         </div>
 
-        <Link href="/login">
-          <Button size="sm">
-            Log in <ArrowRight className="ml-2 inline h-4 w-4" />
-          </Button>
-        </Link>
+        {session ? (
+          <ProfileMenu />
+        ) : (
+          <Link href="/login">
+            <Button size="sm">
+              Log in <ArrowRight className="ml-2 inline h-4 w-4" />
+            </Button>
+          </Link>
+        )}
       </div>
     </header>
   )
