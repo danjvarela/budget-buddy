@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import ResendVerificationForm from "./form"
+import { ResendVerificationEmailForm } from "@/components/forms/resend-verification-email"
 
 export default function AccountVerificationResend() {
   return (
@@ -27,7 +27,7 @@ export default function AccountVerificationResend() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ResendVerificationForm />
+        <ResendVerificationEmailForm />
       </CardContent>
     </Card>
   )

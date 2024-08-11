@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-export default function PageHeading({
+export function PageHeading({
   pageTitle,
   pageDescription,
   className,

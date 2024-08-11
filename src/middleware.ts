@@ -8,6 +8,7 @@ function isAuthPath(path: string) {
 }
 
 function isPathProtected(path: string) {
+  if (path === "/test") return false
   return path !== "/" && !isAuthPath(path)
 }
 

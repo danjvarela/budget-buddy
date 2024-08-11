@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-export default function Section({
+export function Section({
   children,
   title,
   dangerZone,

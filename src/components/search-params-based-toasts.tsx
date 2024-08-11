@@ -2,9 +2,10 @@
 
 import { useCallback, useEffect } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { debounce } from "lodash"
 import { useToast } from "@/components/ui/use-toast"
 
-export default function SearchParamToastMessages() {
+export function SearchParamBasedToasts() {
   const router = useRouter()
   const pathname = usePathname()
   const { toast } = useToast()
@@ -25,20 +26,24 @@ export default function SearchParamToastMessages() {
   )
 
   useEffect(() => {
-    if (errorMessage) {
-      toast({
-        variant: "destructive",
-        description: errorMessage,
-        onOpenChange: removeAssociatedSearchParam("error"),
-      })
-    }
+    const showToasts = debounce(() => {
+      if (errorMessage) {
+        toast({
+          variant: "destructive",
+          description: errorMessage,
+          onOpenChange: removeAssociatedSearchParam("error"),
+        })
+      }
 
-    if (successMessage) {
-      toast({
-        description: successMessage,
-        onOpenChange: removeAssociatedSearchParam("success"),
-      })
-    }
+      if (successMessage) {
+        toast({
+          description: successMessage,
+          onOpenChange: removeAssociatedSearchParam("success"),
+        })
+      }
+    }, 500)
+
+    showToasts()
   }, [toast, errorMessage, successMessage, removeAssociatedSearchParam])
 
   return null

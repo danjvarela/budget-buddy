@@ -1,10 +1,11 @@
 import React from "react"
 import { getCurrentSessionServerSide } from "@/lib/session"
 import { Separator } from "@/components/ui/separator"
-import PageHeading from "../components/page-heading"
-import ChangeEmail from "./components/change-email"
-import ChangePassword from "./components/change-password"
-import DeleteAccount from "./components/delete-account"
+import { DeleteAccountDialog } from "@/components/dialogs/delete-account"
+import { ChangeEmailForm } from "@/components/forms/change-email"
+import { ChangePasswordForm } from "@/components/forms/change-password"
+import { PageHeading } from "@/components/page-heading"
+import { Section } from "@/components/profile/section"
 
 export default async function ProfilePage() {
   const session = await getCurrentSessionServerSide()
@@ -23,11 +24,21 @@ export default async function ProfilePage() {
         }
       />
 
-      <ChangeEmail />
+      <Section title="Change Email" className="mt-8">
+        <ChangeEmailForm />
+      </Section>
+
       <Separator className="my-8" />
-      <ChangePassword />
+
+      <Section title="Change Password">
+        <ChangePasswordForm />
+      </Section>
+
       <Separator className="my-8" />
-      <DeleteAccount />
+
+      <Section title="Delete Account" dangerZone>
+        <DeleteAccountDialog />
+      </Section>
     </div>
   )
 }

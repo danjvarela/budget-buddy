@@ -1,13 +1,14 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo } from "react"
+import { getExpensesAction } from "@/actions/expenses"
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table"
 import { Loader2 } from "lucide-react"
-import { match, P } from "ts-pattern"
+import { useAction } from "next-safe-action/hooks"
 import {
   Table,
   TableBody,
@@ -16,44 +17,31 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useToast } from "@/components/ui/use-toast"
-import { getExpenses } from "../actions"
-import { ExpenseTransaction } from "../types"
 import { columns } from "./expenses-table-columns"
 
 export default function TransactionsTable() {
-  const [expenses, setExpenses] = useState<ExpenseTransaction[]>()
-  const { toast } = useToast()
+  const {
+    execute: getExpenses,
+    result,
+    isExecuting,
+  } = useAction(getExpensesAction)
+
+  const data = useMemo(() => {
+    return result.data || []
+  }, [result])
 
   const table = useReactTable<ExpenseTransaction>({
-    data: expenses || [],
+    data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
 
   useEffect(() => {
-    getExpenses().then((data) => {
-      return match(data)
-        .with(
-          P.union(
-            { error: P.not(P.nullish) },
-            { ["field-error"]: P.not(P.nullish) }
-          ),
-          (data) => {
-            toast({
-              description: data.error,
-            })
-            setExpenses([])
-          }
-        )
-        .otherwise((expenses) => {
-          return setExpenses(expenses)
-        })
-    })
-  }, [toast])
+    getExpenses()
+  }, [getExpenses])
 
   const renderData = useCallback(() => {
-    if (typeof expenses === "undefined")
+    if (isExecuting)
       return (
         <TableRow>
           <TableCell colSpan={columns.length} className="h-24 text-center">
@@ -81,7 +69,7 @@ export default function TransactionsTable() {
         </TableCell>
       </TableRow>
     )
-  }, [table, expenses])
+  }, [table, isExecuting])
 
   return (
     <Table className="h-full">

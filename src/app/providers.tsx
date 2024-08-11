@@ -1,7 +1,6 @@
-import { Session } from "@/lib/session"
-import AuthProvider from "@/components/auth-provider"
+import { AuthProvider } from "@/components/auth-provider"
 
-export default function Providers({
+export function Providers({
   session,
   children,
 }: React.PropsWithChildren<{

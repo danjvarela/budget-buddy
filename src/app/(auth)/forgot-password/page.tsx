@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import RequestPasswordResetForm from "./form"
+import { RequestPasswordResetForm } from "@/components/forms/request-password-reset"
 
 export default function ResetPasswordSendPage() {
   return (

@@ -4,8 +4,8 @@ import "./globals.css"
 import { getCurrentSessionServerSide } from "@/lib/session"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
-import SearchParamToastMessages from "@/components/search-params-toast-messages"
-import Providers from "./providers"
+import { SearchParamBasedToasts } from "@/components/search-params-based-toasts"
+import { Providers } from "./providers"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -29,7 +29,7 @@ export default async function RootLayout({
           inter.className
         )}
       >
-        <SearchParamToastMessages />
+        <SearchParamBasedToasts />
         <Providers session={session}>{children}</Providers>
         <Toaster />
       </body>

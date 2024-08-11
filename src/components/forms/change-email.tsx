@@ -1,7 +1,10 @@
 "use client"
 
 import { useCallback } from "react"
+import { requestChangeEmailAction } from "@/actions/profile"
+import { requestChangeEmailSchema } from "@/schemas/profile"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useAction } from "next-safe-action/hooks"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
@@ -16,60 +19,44 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
-import { useToast } from "@/components/ui/use-toast"
-import { requestChangeEmail } from "../actions"
-import Section from "./section"
+import { ActionErrorToast } from "../action-error-toast"
 
-const schema = z.object({
-  email: z.string().email(),
-  password: z.string(),
-})
+type ChangeEmailFormData = z.infer<typeof requestChangeEmailSchema>
 
-type ChangeEmailFormData = z.infer<typeof schema>
+const defaultValues: ChangeEmailFormData = {
+  email: "",
+  password: "",
+}
 
-export default function ChangeEmail() {
-  const { toast } = useToast()
+export function ChangeEmailForm() {
+  const {
+    executeAsync: requestChangeEmail,
+    result,
+    isExecuting,
+  } = useAction(requestChangeEmailAction)
+
   const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    resolver: zodResolver(requestChangeEmailSchema),
+    defaultValues,
   })
 
   const onSubmit = useCallback(
     async (data: ChangeEmailFormData) => {
       const res = await requestChangeEmail(data)
 
-      if ("error" in res) {
-        if ("field-error" in res && Array.isArray(res["field-error"])) {
-          toast({
-            variant: "destructive",
-            description: `${res.error}: ${res["field-error"][1]}`,
-          })
-          return
-        }
-
-        toast({
-          variant: "destructive",
-          description: res.error,
+      if (res?.data?.success) {
+        form.reset({
+          email: "",
+          password: "",
         })
-        return
       }
-
-      toast({
-        description: res.success,
-      })
-      form.reset({
-        email: "",
-        password: "",
-      })
     },
-    [toast, form]
+    [form, requestChangeEmail]
   )
 
   return (
-    <Section title="Change Email" className="mt-8">
+    <>
+      <ActionErrorToast result={result} />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -107,10 +94,15 @@ export default function ChangeEmail() {
           />
 
           <div>
-            <Button type="submit">Submit</Button>
+            <Button
+              type="submit"
+              isLoading={form.formState.isSubmitting || isExecuting}
+            >
+              Submit
+            </Button>
           </div>
         </form>
       </Form>
-    </Section>
+    </>
   )
 }

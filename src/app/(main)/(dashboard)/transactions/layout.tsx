@@ -1,4 +1,4 @@
-import PageHeading from "../components/page-heading"
+import { PageHeading } from "@/components/page-heading"
 import TransactionTabs from "./components/transaction-tabs"
 
 export default function TransactionsLayout({

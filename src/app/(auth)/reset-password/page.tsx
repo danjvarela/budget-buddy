@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import ResetPasswordForm from "./form"
+import { ResetPasswordForm } from "@/components/forms/reset-password"
 
 export default function ResetPasswordPage() {
   return (

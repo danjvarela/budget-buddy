@@ -8,7 +8,7 @@ export interface NavLinkProps
   id: string
 }
 
-export default function NavLink({
+export function NavLink({
   href,
   children,
   className,

@@ -29,7 +29,7 @@ export function useUrlState<T extends UrlStateValue>(
     } else {
       return s as T
     }
-  }, [searchParams])
+  }, [searchParams, initialValue, key])
 
   const [value, setValue] = useState<T>(resolveSearchParamValue)
 

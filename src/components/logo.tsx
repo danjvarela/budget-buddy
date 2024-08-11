@@ -2,7 +2,7 @@ import Link from "next/link"
 import { Calculator } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-export default function Logo({
+export function Logo({
   className,
   ...props
 }: Omit<React.ComponentProps<typeof Link>, "children" | "href">) {

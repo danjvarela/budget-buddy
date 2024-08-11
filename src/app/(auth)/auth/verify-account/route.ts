@@ -1,33 +1,36 @@
 import { NextRequest, NextResponse } from "next/server"
-import api, { ErrorResponse, SuccessResponse } from "@/lib/api"
+import { HTTPError } from "ky"
+import { DEFAULT_SERVER_ERROR_MESSAGE } from "next-safe-action"
+import { api } from "@/lib/api"
+import { generateHTTPErrMessage } from "@/lib/safe-action"
 
 export async function GET(req: NextRequest) {
   const key = req.nextUrl.searchParams.get("key")
 
-  if (!key) {
-    return NextResponse.json(null, { status: 500 })
-  }
-
   const redirectUrl = new URL("/login", req.url)
 
-  try {
-    const { data, response } = await api.post<SuccessResponse | ErrorResponse>(
-      "/verify-account",
-      { key }
+  if (!key) {
+    redirectUrl.searchParams.set(
+      "error",
+      "Account verification link is malformed. You can try to resend a new verification email link."
     )
-
-    if (response.ok) {
-      if ("success" in data) {
-        redirectUrl.searchParams.set("success", data.success)
-      }
-      return NextResponse.redirect(redirectUrl)
-    }
-
-    if ("error" in data) {
-      redirectUrl.searchParams.set("error", data.error)
-      return NextResponse.redirect(redirectUrl)
-    }
-  } catch (err) {
-    return NextResponse.json(null, { status: 500 })
+    return NextResponse.redirect(redirectUrl)
   }
+
+  try {
+    const data = await api
+      .post("verify-account", { json: { key } })
+      .json<SuccessResponse>()
+
+    redirectUrl.searchParams.set("success", data.success)
+  } catch (err) {
+    if (err instanceof HTTPError) {
+      const errMessage = await generateHTTPErrMessage(err)
+      redirectUrl.searchParams.set("error", errMessage)
+    } else {
+      redirectUrl.searchParams.set("error", DEFAULT_SERVER_ERROR_MESSAGE)
+    }
+  }
+
+  return NextResponse.redirect(redirectUrl)
 }

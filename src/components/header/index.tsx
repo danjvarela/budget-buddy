@@ -13,9 +13,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { useSession } from "@/components/auth-provider"
-import Logo from "@/components/logo"
-import NavLink, { NavLinkProps } from "./nav-link"
-import ProfileMenu from "./profile-menu"
+import { Logo } from "@/components/logo"
+import { NavLink, NavLinkProps } from "./nav-link"
+import { ProfileMenu } from "./profile-menu"
 
 function NavLinks({
   closeSheet,

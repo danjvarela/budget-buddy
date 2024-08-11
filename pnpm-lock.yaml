@@ -62,6 +62,9 @@ dependencies:
   date-fns:
     specifier: ^3.6.0
     version: 3.6.0
+  ky:
+    specifier: ^1.5.0
+    version: 1.5.0
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
@@ -71,6 +74,9 @@ dependencies:
   next:
     specifier: 14.2.3
     version: 14.2.3(@babel/core@7.24.5)(react-dom@18.0.0)(react@18.3.0)
+  next-safe-action:
+    specifier: ^7.4.3
+    version: 7.4.3(next@14.2.3)(react-dom@18.0.0)(react@18.3.0)(zod@3.23.8)
   react:
     specifier: ^18.2.8
     version: 18.3.0
@@ -3138,6 +3144,11 @@ packages:
       json-buffer: 3.0.1
     dev: true
 
+  /ky@1.5.0:
+    resolution: {integrity: sha512-bkQo+UqryW6Zmo/DsixYZE4Z9t2mzvNMhceyIhuMuInb3knm5Q+GNGMKveydJAj+Z6piN1SwI6eR/V0G+Z0BtA==}
+    engines: {node: '>=18'}
+    dev: false
+
   /language-subtag-registry@0.3.22:
     resolution: {integrity: sha512-tN0MCzyWnoz/4nHS6uxdlFWoUZT7ABptwKPQ52Ea7URk6vll88bWBVhodtnlfEuCcKWNGoc+uGbw1cwa9IKh/w==}
     dev: true
@@ -3327,6 +3338,30 @@ packages:
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
+
+  /next-safe-action@7.4.3(next@14.2.3)(react-dom@18.0.0)(react@18.3.0)(zod@3.23.8):
+    resolution: {integrity: sha512-wUVs5Leh6GWR4vnQuSdJDIJFAuz9YWuCYo7S4px1bofu+Pfg9Em/1zZxZvwaFmIqu+TJssOM5rsq64Og2owagQ==}
+    engines: {node: '>=18.17'}
+    peerDependencies:
+      next: '>= 14.0.0'
+      react: '>= 18.2.0'
+      react-dom: '>= 18.2.0'
+      valibot: '>= 0.36.0'
+      yup: '>= 1.0.0'
+      zod: '>= 3.0.0'
+    peerDependenciesMeta:
+      valibot:
+        optional: true
+      yup:
+        optional: true
+      zod:
+        optional: true
+    dependencies:
+      next: 14.2.3(@babel/core@7.24.5)(react-dom@18.0.0)(react@18.3.0)
+      react: 18.3.0
+      react-dom: 18.0.0(react@18.3.0)
+      zod: 3.23.8
+    dev: false
 
   /next@14.2.3(@babel/core@7.24.5)(react-dom@18.0.0)(react@18.3.0):
     resolution: {integrity: sha512-dowFkFTR8v79NPJO4QsBUtxv0g9BrS/phluVpMAt2ku7H+cbcBJlopXjkWlwxrk/xGqMemr7JkGPGemPrLLX7A==}

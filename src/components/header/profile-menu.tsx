@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { logoutAction } from "@/actions/auth"
 import { LogOut, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -9,14 +10,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useSession } from "@/components/auth-provider"
-import { logout } from "@/app/(auth)/actions"
 
-export default function ProfileMenu() {
+export function ProfileMenu() {
   const session = useSession()
   const router = useRouter()
 
   async function handleLogOut() {
-    await logout()
+    await logoutAction()
     router.push("/")
   }
 

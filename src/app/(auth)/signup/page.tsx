@@ -6,8 +6,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import SocialLogin from "../components/social-login"
-import SignupForm from "./form"
+import { SignupForm } from "@/components/forms/signup"
+import { SocialLogin } from "@/components/social-login"
 
 export default function SignupPage() {
   return (
@@ -33,7 +33,7 @@ export default function SignupPage() {
             <Separator />
           </div>
         </div>
-        <SocialLogin />
+        <SocialLogin mode="signup" />
       </CardContent>
     </Card>
   )
