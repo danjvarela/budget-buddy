@@ -53,7 +53,7 @@ export default function ResendVerificationForm() {
   return (
     <Form {...form}>
       <form
-        className="flex w-full space-x-2"
+        className="flex w-full flex-col items-center gap-2 md:flex-row"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
@@ -72,7 +72,12 @@ export default function ResendVerificationForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" isLoading={isSubmitting}>
+        <Button
+          type="submit"
+          size="sm"
+          className="w-full md:w-auto"
+          isLoading={isSubmitting}
+        >
           Resend verification
         </Button>
       </form>

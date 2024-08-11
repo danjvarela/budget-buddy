@@ -14,11 +14,11 @@ export default function AccountVerificationResend() {
     <>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Button size="icon" variant="ghost" asChild>
-            <Link href="/login">
+          <Link href="/login">
+            <Button size="icon" variant="ghost">
               <ChevronLeft />
-            </Link>
-          </Button>{" "}
+            </Button>{" "}
+          </Link>{" "}
           Resend verification email
         </CardTitle>
       </CardHeader>
