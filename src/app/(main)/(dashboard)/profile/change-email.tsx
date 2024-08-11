@@ -60,8 +60,12 @@ export default function ChangeEmail() {
       toast({
         description: res.success,
       })
+      form.reset({
+        email: "",
+        password: "",
+      })
     },
-    [toast]
+    [toast, form]
   )
 
   return (
