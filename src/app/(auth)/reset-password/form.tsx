@@ -1,7 +1,6 @@
 "use client"
 
-import { useCallback } from "react"
-import Link from "next/link"
+import { useRouter, useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -9,23 +8,20 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
 import { useToast } from "@/components/ui/use-toast"
-import { signup } from "../actions"
+import { resetPassword } from "../actions"
 
 const schema = z
   .object({
-    email: z.string().email({ message: "not a valid email" }),
     password: z
       .string()
-      .min(6, { message: "password should be 6 characters long" }),
+      .min(6, { message: "password should be atleast 6 characters long" }),
     passwordConfirmation: z.string(),
   })
   .refine(
@@ -36,15 +32,17 @@ const schema = z
     }
   )
 
-type SignupData = z.infer<typeof schema>
+type ResetPasswordData = z.infer<typeof schema>
 
-export default function SignupForm() {
+export default function ResetPasswordForm() {
+  const searchParams = useSearchParams()
+  const key = searchParams.get("key")
+  const router = useRouter()
   const { toast } = useToast()
 
-  const form = useForm<SignupData>({
+  const form = useForm<ResetPasswordData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: "",
       password: "",
       passwordConfirmation: "",
     },
@@ -52,57 +50,36 @@ export default function SignupForm() {
 
   const { isSubmitting } = form.formState
 
-  const onSubmit = useCallback(
-    async (data: SignupData) => {
-      const res = await signup(data)
+  async function onSubmit(data: ResetPasswordData) {
+    const res = await resetPassword({ ...data, key: key || "" })
 
-      if ("error" in res) {
-        toast({
-          variant: "destructive",
-          description: res.error,
-        })
-        return
-      }
-
+    if ("error" in res) {
       toast({
-        description: res.success,
+        variant: "destructive",
+        description: res.error,
       })
+      return
+    }
 
-      form.reset({
-        email: "",
-        password: "",
-        passwordConfirmation: "",
-      })
-    },
-    [toast, form]
-  )
+    toast({
+      description: res.success,
+    })
+
+    router.push("/login")
+  }
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
         className="h-full w-full space-y-4"
+        onSubmit={form.handleSubmit(onSubmit)}
       >
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="example@email.com" {...field} />
-              </FormControl>
-              <FormDescription>Your email is safe with us.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>New Password</FormLabel>
               <FormControl>
                 <PasswordInput {...field} />
               </FormControl>
@@ -123,17 +100,6 @@ export default function SignupForm() {
             </FormItem>
           )}
         />
-
-        <div className="text-sm text-muted-foreground">
-          Already have an account?{" "}
-          <Link
-            href="/login"
-            className="underline transition-colors hover:text-foreground"
-          >
-            Login
-          </Link>
-        </div>
-
         <Button type="submit" className="w-full" isLoading={isSubmitting}>
           Submit
         </Button>
