@@ -11,30 +11,28 @@ import SignupForm from "./form"
 
 export default function SignupPage() {
   return (
-    <div className="flex h-screen w-full items-center justify-center px-2">
-      <Card className="w-full max-w-lg">
-        <CardHeader>
-          <CardTitle>Sign up to Budget Buddy</CardTitle>
-          <CardDescription>
-            Enter your email and password to continue.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <SignupForm />
-          <div className="flex items-center gap-2 py-4">
-            <div className="flex-1">
-              <Separator />
-            </div>
-            <span className="text-sm text-muted-foreground">
-              or continue with
-            </span>
-            <div className="flex-1">
-              <Separator />
-            </div>
+    <Card className="w-full max-w-lg">
+      <CardHeader>
+        <CardTitle>Sign up to Budget Buddy</CardTitle>
+        <CardDescription>
+          Enter your email and password to continue.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <SignupForm />
+        <div className="flex items-center gap-2 py-4">
+          <div className="flex-1">
+            <Separator />
           </div>
-          <SocialLogin />
-        </CardContent>
-      </Card>
-    </div>
+          <span className="text-sm text-muted-foreground">
+            or continue with
+          </span>
+          <div className="flex-1">
+            <Separator />
+          </div>
+        </div>
+        <SocialLogin />
+      </CardContent>
+    </Card>
   )
 }

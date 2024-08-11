@@ -100,7 +100,7 @@ export default function LoginForm() {
           )}
         />
 
-        <div className="space-y-1 text-sm text-muted-foreground">
+        <div className="flex flex-col gap-1 text-sm text-muted-foreground">
           <div>
             Don{"'"}t have an account?{" "}
             <Link
@@ -111,14 +111,19 @@ export default function LoginForm() {
             </Link>
           </div>
 
-          <div>
-            <Link
-              href="/account-verification/resend"
-              className="underline transition-colors hover:text-foreground"
-            >
-              Resend verification email
-            </Link>
-          </div>
+          <Link
+            href="/account-verification/resend"
+            className="underline transition-colors hover:text-foreground"
+          >
+            Resend verification email
+          </Link>
+
+          <Link
+            href="/reset-password"
+            className="underline transition-colors hover:text-foreground"
+          >
+            Forgot password
+          </Link>
         </div>
 
         <Button
