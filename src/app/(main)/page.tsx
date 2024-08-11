@@ -8,8 +8,8 @@ import Header from "@/components/header"
 import { NavLinkProps } from "@/components/header/nav-link"
 import graphOnLaptop from "./assets/graph-on-laptop.jpg"
 import laptopComputer from "./assets/laptop-computer.jpg"
-import FeatureCard from "./feature-card"
-import HeroImage from "./hero-image"
+import FeatureCard from "./components/feature-card"
+import HeroImage from "./components/hero-image"
 
 const navLinks: NavLinkProps[] = [
   { children: "Features", href: "#features", id: "features" },

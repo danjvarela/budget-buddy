@@ -1,7 +1,7 @@
 import React from "react"
 import { getCurrentSessionServerSide } from "@/lib/session"
 import { Separator } from "@/components/ui/separator"
-import PageHeading from "../page-heading"
+import PageHeading from "../components/page-heading"
 import ChangeEmail from "./change-email"
 import ChangePassword from "./change-password"
 import DeleteAccount from "./delete-account"

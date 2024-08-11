@@ -1,5 +1,5 @@
-import PageHeading from "../page-heading"
-import TransactionTabs from "./transaction-tabs"
+import PageHeading from "../components/page-heading"
+import TransactionTabs from "./components/transaction-tabs"
 
 export default function TransactionsLayout({
   children,

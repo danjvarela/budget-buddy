@@ -17,9 +17,9 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { useToast } from "@/components/ui/use-toast"
-import { getExpenses } from "../../../actions"
-import { ExpenseTransaction } from "../../../types"
-import { columns } from "./columns"
+import { getExpenses } from "../actions"
+import { ExpenseTransaction } from "../types"
+import { columns } from "./expenses-table-columns"
 
 export default function TransactionsTable() {
   const [expenses, setExpenses] = useState<ExpenseTransaction[]>()

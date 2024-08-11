@@ -3,7 +3,7 @@
 import { createColumnHelper } from "@tanstack/react-table"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
-import { ExpenseTransaction } from "../../../types"
+import { ExpenseTransaction } from "../types"
 
 const columnHelper = createColumnHelper<ExpenseTransaction>()
 

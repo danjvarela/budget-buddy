@@ -1,5 +1,3 @@
-"use client"
-
 import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
@@ -14,7 +12,7 @@ import {
 import { TabsContent } from "@/components/ui/tabs"
 import TransactionsTable from "./expenses-table"
 
-export default function ExpensesPage() {
+export default function ExpensesTabContent() {
   return (
     <TabsContent value="expenses">
       <Card>

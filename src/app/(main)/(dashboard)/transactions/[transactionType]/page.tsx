@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import { match } from "ts-pattern"
 import { TabsContent } from "@/components/ui/tabs"
-import ExpensesPage from "./expenses"
+import ExpensesTabContent from "../components/expenses-tab-content"
 
 type Props = {
   params: {
@@ -11,7 +11,7 @@ type Props = {
 
 export default function TransactionTypePage({ params }: Props) {
   return match(params.transactionType)
-    .with("expenses", () => <ExpensesPage />)
+    .with("expenses", () => <ExpensesTabContent />)
     .with("incomes", () => <TabsContent value="incomes">incomes</TabsContent>)
     .with("transfers", () => (
       <TabsContent value="transfers">transfers</TabsContent>
