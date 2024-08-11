@@ -5,8 +5,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useSession } from "@/components/auth-provider"
@@ -22,7 +20,9 @@ export default function ProfileMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">{session?.email}</Button>
+        <Button variant="outline" className="max-w-[200px]">
+          <span className="w-full truncate">{session?.email}</span>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-[150px]">
         <DropdownMenuItem asChild>
