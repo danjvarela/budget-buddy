@@ -4,7 +4,7 @@ import { useCallback, useEffect } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useToast } from "@/components/ui/use-toast"
 
-export default function Messages() {
+export default function SearchParamToastMessages() {
   const router = useRouter()
   const pathname = usePathname()
   const { toast } = useToast()
