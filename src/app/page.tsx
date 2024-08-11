@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { getCurrentSessionServerSide } from "@/lib/session"
-import LogoutButton from "./(auth)/logout-button"
+import LogoutButton from "@/components/logout-button"
 
 export default async function Home() {
   const session = await getCurrentSessionServerSide()
