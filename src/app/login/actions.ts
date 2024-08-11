@@ -35,3 +35,20 @@ export async function login(body: { email: string; password: string }) {
     return { error: "Something went wrong, please try again." }
   }
 }
+
+export async function getGoogleAuthorizationURL() {
+  try {
+    const { data, response } = await api.post<{ authorize_url: string }>(
+      "/auth/google",
+      {}
+    )
+
+    if (response.ok) {
+      return { authorizeUrl: data.authorize_url }
+    }
+
+    return { error: "Something went wrong, please try again." }
+  } catch (err) {
+    return { error: "Something went wrong, please try again." }
+  }
+}
