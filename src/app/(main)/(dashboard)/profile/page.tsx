@@ -1,6 +1,7 @@
 import React from "react"
 import { getCurrentSessionServerSide } from "@/lib/session"
 import ChangeEmail from "./change-email"
+import ChangePassword from "./change-password"
 
 export default async function ProfilePage() {
   const session = await getCurrentSessionServerSide()
@@ -20,6 +21,7 @@ export default async function ProfilePage() {
       </div>
 
       <ChangeEmail />
+      <ChangePassword />
     </div>
   )
 }
